@@ -6,34 +6,17 @@
 __author__ = 'dotun rominiyi'
 
 # IMPORTS
-import argparse
+from cosine.core.args import CosineCmdLineArgs
 from cosine.core.algo import CosineAlgo
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Cosine Algo')
-    parser.add_argument("-c", "--config",
-                        help="Config YAML file required to setup the algo.")
-    parser.add_argument("-e", "--env", choices=['DEV', 'TST', 'PRD'],
-                        help="The execution environment.")
-    parser.add_argument("-a", "--appname", default='Cosine Algo',
-                        help="The name of the application.")
-    parser.add_argument("-lf", "--logfile",
-                        help="The name of the log file. Do not change this unless you know what you're doing.")
-    parser.add_argument("-lv", "--loglevel",
-                        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'FATAL', 'CRITICAL'],
-                        help="Log level.")
-    parser.add_argument("-nl", "--nologfile",
-                        const=True, default=False, nargs='?',
-                        help="Disable log file generation.")
+    args = CosineCmdLineArgs(appdesc='Cosine Algo')
 
-    parser.print_help()
-    args = parser.parse_args()
+    args.print_help()
+    args.parse()
 
-    # filter out None value fields...
-    args = args.__class__(**({arg: args.__dict__[arg] for arg in args.__dict__ if args.__dict__[arg] is not None}))
-
-    app = CosineAlgo(cmdline_args=args.__dict__)
+    app = CosineAlgo(cmdline_args=args.asdict())
     app.run()
 
 
