@@ -1,2 +1,2 @@
 # cosine-algo
-An example trading algo implementation that uses the Cosine framework.
+An example trading algo implementation that uses the [Cosine](https://github.com/oladotunr/cosine) framework.
